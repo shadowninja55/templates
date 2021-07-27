@@ -1,2 +1,2 @@
-# flake-templates
-my flake templates for development.
+# templates
+flake templates for development.
