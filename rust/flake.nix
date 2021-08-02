@@ -5,7 +5,7 @@
   };
 
   outputs = { nixpkgs, rust-overlay, ... }: let
-    system = "x86-64_linux";
+    system = "x86_64-linux";
     overlays = [ (import rust-overlay) ];
     pkgs = import nixpkgs {
       inherit system overlays;
