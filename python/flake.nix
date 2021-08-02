@@ -1,12 +1,23 @@
 {
-  inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
-  outputs = { self, nixpkgs }: let pkgs = nixpkgs.legacyPackages.x86_64-linux; in {
-    devShell.x86_64-linux = pkgs.mkShell {
-      nativeBuildInputs = [
-        (pkgs.python39.withPackages (pyPkgs: with pyPkgs; [
-          
-        ]))
-      ]; 
-    };
+  inputs = {
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
   };
+
+  outputs = { self, nixpkgs, flake-utils, ... }: 
+    flake-utils.eachDefaultSystem (system:
+      let 
+        pkgs = import nixpkgs {
+          inherit system;
+        };
+      in {
+        devShell = pkgs.mkShell {
+          buildInputs = [
+            (pkgs.python39.withPackages (pyPkgs: with pyPkgs; [
+
+            ]))
+          ]; 
+        };
+      }
+    );
 }
