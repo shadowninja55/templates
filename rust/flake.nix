@@ -15,7 +15,7 @@
       in {
         devShell = pkgs.mkShell {
           buildInputs = [
-            pkgs.rust-bin.nightly.latest.default
+            pkgs.rust-bin.stable.latest.default
           ];
         };
       }
