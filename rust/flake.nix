@@ -2,20 +2,26 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    rust-overlay.url = "github:oxalica/rust-overlay";
+    naersk.url = "github:nmattia/naersk";
   };
 
-  outputs = { self, nixpkgs, flake-utils, rust-overlay, ... }:
+  outputs = { self, nixpkgs, flake-utils, naersk, ... } @inputs:
     flake-utils.lib.eachDefaultSystem (system:
       let 
-        overlays = [ (import rust-overlay) ];
-        pkgs = import nixpkgs {
-          inherit system overlays;
+        pkgs = nixpkgs.legacyPackages."${system}";
+        naersk-lib = naersk.lib."${system}";      
+      in rec {
+        defaultPackage = naersk-lib.buildPackage {
+          # name = "";
+          root = ./.;
+        }; 
+        defaultApp = flake-utils.lib.mkApp {
+          drv = defaultPackage;
         };
-      in {
         devShell = pkgs.mkShell {
-          buildInputs = [
-            pkgs.rust-bin.stable.latest.default
+          nativeBuildInputs = with pkgs; [
+            rustc
+            cargo
           ];
         };
       }
