@@ -5,7 +5,7 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, ... }: 
-    flake-utils.eachDefaultSystem (system:
+    flake-utils.lib.eachDefaultSystem (system:
       let 
         pkgs = nixpkgs.legacyPackages."${system}";
       in {
