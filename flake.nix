@@ -1,7 +1,7 @@
 {
   outputs = { self }: {
     templates = {
-      python.path = ./python;
+      poetry.path = ./poetry;
       rust.path = ./rust;
     };
   };
