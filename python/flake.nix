@@ -22,11 +22,7 @@
         };
         devShell = (poetry2nix.mkPoetryEnv {
           projectDir = ./.;
-        }).env.overrideAttrs (old: {
-          nativeBuildInputs = old.nativeBuildInputs or [ ] ++ (with pkgs; [
-            poetry
-          ]);
-        });
+        }).env;
       }
     );
 }
