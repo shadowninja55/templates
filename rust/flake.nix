@@ -15,7 +15,7 @@
           # name = "";
           root = ./.;
         }; 
-        defaultApp = flake-utils.lib.mkApp {
+        defaultApp = utils.lib.mkApp {
           drv = defaultPackage;
         };
         devShell = pkgs.mkShell {
