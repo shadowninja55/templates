@@ -5,7 +5,7 @@
     naersk.url = "github:nmattia/naersk";
   };
 
-  outputs = { self, nixpkgs, flake-utils, naersk, ... } @inputs:
+  outputs = { self, nixpkgs, utils, naersk, ... } @inputs:
     utils.lib.eachDefaultSystem (system:
       let 
         pkgs = nixpkgs.legacyPackages."${system}";
