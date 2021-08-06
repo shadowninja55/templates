@@ -11,7 +11,7 @@
         devShell = pkgs.mkShell {
           nativeBuildInputs = with pkgs; [
             ghc
-            cabal
+            cabal-install
           ];
         };
       }
