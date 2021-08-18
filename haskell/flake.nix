@@ -7,9 +7,14 @@
     utils.lib.eachDefaultSystem (system: 
       let
         pkgs = nixpkgs.legacyPackages."${system}";
-      in {
-        devShell = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
+        hpkgs = pkgs.haskellPackages;
+      in rec {
+        defaultPackage = hpkgs.callCabal2nix "" ./. { };
+        defaultApp = utils.lib.mkApp {
+          drv = defaultPackage;
+        };
+        devShell = pkgs.mkShell { 
+          buildInputs = with pkgs; [
             ghc
             cabal-install
           ];
