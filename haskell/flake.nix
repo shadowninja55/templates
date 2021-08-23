@@ -17,6 +17,7 @@
           buildInputs = with pkgs; [
             ghc
             cabal-install
+            zlib
           ];
         };
       }
